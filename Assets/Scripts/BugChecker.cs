@@ -20,10 +20,11 @@ public class BugChecker : MonoBehaviour
        
         if (collision.gameObject.tag == "Wall" && _rb2d.velocity.magnitude<0.1f)
         {
-            Debug.Log("STUCK!!");
             _timer += Time.deltaTime;
             if (_timer > 2)
             {
+                TimerChecker timer = TimerChecker.Instance;
+                timer.ChangePhase();
                 _rb2d.velocity = Vector2.zero;
                 transform.position = _starterPosition;
             }

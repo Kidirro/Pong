@@ -9,6 +9,15 @@ public class FlipperController : MonoBehaviour
 
     [SerializeField] private float _power;
 
+    private AudioScript _audio;
+
+    private void Awake()
+    {
+        RightRB2D.velocity = -Vector2.up * _power;
+        LeftRB2D.velocity = -Vector2.up * _power;
+        _audio = AudioScript.Instance;
+    }
+
     private void Update()
     {
         /*        int i = 0;
@@ -28,6 +37,7 @@ public class FlipperController : MonoBehaviour
                 }*/
         if (Input.GetMouseButtonDown(0))
         {
+            _audio.PlayAudio(AudioType.FliperActive);
             if (Input.mousePosition.x > Camera.main.pixelWidth / 2)
             {
                 RightRB2D.velocity = Vector2.up * _power;
