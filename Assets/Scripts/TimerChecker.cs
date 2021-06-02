@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity;
 
 public class TimerChecker : MonoBehaviour
 {
@@ -27,6 +28,30 @@ public class TimerChecker : MonoBehaviour
                 _record.text = "Record:\n" + PlayerPrefs.GetFloat("Record");
             }
         }
+        else
+        {
+            _audio.PlayAudio(AudioType.BallStart);
+        }
+        _time = 0;
+    }
+
+    public void CloseGame()
+    {
+        _isGamePlay = false;
+        _audio.PlayAudio(AudioType.BallFall);
+        if (_time > PlayerPrefs.GetFloat("Record"))
+        {
+            PlayerPrefs.SetFloat("Record", _time);
+            _record.text = "Record:\n" + PlayerPrefs.GetFloat("Record");
+        }
+        _time = 0;
+    }
+
+    public void StartGame()
+    {
+        Application.targetFrameRate = 60;
+        _isGamePlay = true;
+        _audio.PlayAudio(AudioType.BallStart);
         _time = 0;
     }
 
@@ -46,14 +71,6 @@ public class TimerChecker : MonoBehaviour
             _time = Mathf.Round(_time * 10) / 10;
             _score.text = (_isGamePlay) ? "Score:\n" + _time : "Score:\n-";
             yield return new WaitForSeconds(0.1f);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Player")
-        {
-            ChangePhase();
         }
     }
 }

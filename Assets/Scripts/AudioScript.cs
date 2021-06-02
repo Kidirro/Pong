@@ -8,18 +8,21 @@ public class AudioScript : MonoBehaviour
     private static AudioScript _instance;
 
     [SerializeField] private List<AudioClip> _audioClips = new List<AudioClip>();
-    [SerializeField] private AudioSource _audioSource;
+    private List<AudioSource> _audioSource= new List<AudioSource>();
 
     private void Awake()
     {
         _instance = this;
-        _audioSource = GetComponent<AudioSource>();
+        for (int i = 0; i < _audioClips.Count; i++)
+        {
+            _audioSource.Add(gameObject.AddComponent<AudioSource>());
+            _audioSource[i].clip = _audioClips[i];
+        }
     }
 
     public void PlayAudio(AudioType audio)
     {
-        _audioSource.clip = _audioClips[(int)audio];
-        _audioSource.Play();
+        _audioSource[(int)audio].Play();
     }
 
 }
@@ -27,5 +30,7 @@ public class AudioScript : MonoBehaviour
 public enum AudioType
 {
     BallFall=0,
-    FliperActive
+    BallStart,
+    FliperActive,
+    PowerHit
 }

@@ -11,6 +11,7 @@ public class RotatingScript : MonoBehaviour
     private void Awake()
     {
         _rb2D = GetComponent<Rigidbody2D>();
+        if (_rb2D == null) _rb2D = gameObject.AddComponent<Rigidbody2D>();
         _rb2D.isKinematic = true;
         _rb2D.angularVelocity = Power *(int) RotateDirection;
     }

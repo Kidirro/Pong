@@ -24,7 +24,7 @@ public class BugChecker : MonoBehaviour
             if (_timer > 2)
             {
                 TimerChecker timer = TimerChecker.Instance;
-                timer.ChangePhase();
+                timer.CloseGame();
                 _rb2d.velocity = Vector2.zero;
                 transform.position = _starterPosition;
             }
