@@ -8,6 +8,12 @@ public class RotatingScript : MonoBehaviour
     public float Power;
     private Rigidbody2D _rb2D;
 
+    public void ChangeRotate()
+    {
+        RotateDirection = (Direction)(-(int)RotateDirection);
+        _rb2D.angularVelocity = Power * (int)RotateDirection;
+    }
+
     private void Awake()
     {
         _rb2D = GetComponent<Rigidbody2D>();
