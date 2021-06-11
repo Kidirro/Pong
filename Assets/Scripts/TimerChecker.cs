@@ -21,7 +21,7 @@ public class TimerChecker : MonoBehaviour
         _isGamePlay = !_isGamePlay;
         if (!_isGamePlay)
         {
-            _audio.PlayAudio(AudioType.BallFall);
+            _audio.PlayAudio(AudioType.BallFall); 
             if (_time > PlayerPrefs.GetFloat("Record"))
             {
                 PlayerPrefs.SetFloat("Record", _time);
